@@ -13,7 +13,7 @@ import com.chibuzo.component.layoutcomponent.VerticalLinearLayout;
 import com.chibuzo.component.utility.AU;
 import com.chibuzo.component.viewcomponent.ButtonComponent;
 import com.chibuzo.component.viewcomponent.ScrollViewComponent;
-import com.component.example.activity.SimpleChatUI;
+import com.component.example.activity.SimpleChatUIActivity;
 
 public class MainActivity extends AppCompatActivity {
     AlphaAnimation buttonAnimation = new AlphaAnimation(1f, 0f);
@@ -38,14 +38,14 @@ public class MainActivity extends AppCompatActivity {
                 new VerticalLinearLayout(this, scrollViewComponent,
                         GenericLayoutParams.MATCH_PARENT, GenericLayoutParams.MATCH_PARENT);
 
-        mainLayout.setPadding(45, 45, 45, 45);
+        mainLayout.setPadding(15, 15, 15, 15);
 
         ButtonComponent simpleChatButton = new ButtonComponent(mainLayout, "Simple Chat");
 
         simpleChatButton.setOnClickListener((view) -> {
             simpleChatButton.startAnimation(buttonAnimation);
 
-            Intent intent = new Intent(MainActivity.this, SimpleChatUI.class);
+            Intent intent = new Intent(MainActivity.this, SimpleChatUIActivity.class);
             startActivity(intent);
         });
     }

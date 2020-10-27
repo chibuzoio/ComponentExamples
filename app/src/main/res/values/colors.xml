@@ -31,6 +31,7 @@
     <color name="genericCircularButton">#FF3310</color>
     <color name="colorPrimaryDarker">#30257F</color>
     <color name="searchBackground">#99000000</color>
+    <color name="transparentWhite">#77ffffff</color>
     <color name="genericBackground">#dddddd</color>
     <color name="backgroundCover">#77000000</color>
     <color name="colorPrimaryDark">#303F9F</color>

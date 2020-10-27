@@ -1,14 +1,12 @@
 package com.component.example.activity;
 
-import android.content.Context;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.core.widget.ImageViewCompat;
 
 import com.chibuzo.component.GenericLayoutParams;
 import com.chibuzo.component.layoutcomponent.FrameLayoutComponent;
@@ -16,9 +14,10 @@ import com.chibuzo.component.layoutcomponent.HorizontalLinearLayout;
 import com.chibuzo.component.layoutcomponent.VerticalLinearLayout;
 import com.chibuzo.component.utility.AU;
 import com.chibuzo.component.viewcomponent.ImageViewComponent;
+import com.chibuzo.component.viewcomponent.TextViewComponent;
 import com.component.example.R;
 
-public class SimpleChatUI extends AppCompatActivity {
+public class SimpleChatUIActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,14 +28,55 @@ public class SimpleChatUI extends AppCompatActivity {
         setActivityContainerLayout();
     }
 
+    public void chatNavigationLayout(ViewGroup viewGroup) {
+        HorizontalLinearLayout horizontalLinearLayout = new HorizontalLinearLayout(this,
+                viewGroup, GenericLayoutParams.MATCH_PARENT, GenericLayoutParams.WRAP_CONTENT);
+        horizontalLinearLayout.setMargins(45, 23, 45, 0);
+        horizontalLinearLayout.setPadding(11, 7, 11, 7);
+        horizontalLinearLayout.setLayoutGravity(Gravity.CENTER_HORIZONTAL);
+        horizontalLinearLayout.setDrawable(AU.curveBackgroundCorner(this, R.color.transparentWhite, 15.333f));
+        horizontalLinearLayout.setWeightSum(3);
+
+        TextViewComponent chatsMenu = new TextViewComponent(horizontalLinearLayout, "Chats", 4, TextViewComponent.BOLD_TEXT);
+        chatsMenu.setLayoutParams(GenericLayoutParams.ZERO_SPACE, GenericLayoutParams.WRAP_CONTENT);
+        chatsMenu.setDrawable(AU.curveBackgroundCorner(this, R.color.darkBlue, 11));
+        chatsMenu.setPadding(7, 9, 7, 9);
+        chatsMenu.setTextViewColor(R.color.whiteColor);
+        chatsMenu.setGravity(Gravity.CENTER);
+        chatsMenu.setLayoutWeight(1);
+
+        TextViewComponent statusMenu = new TextViewComponent(horizontalLinearLayout, "Status", 4, TextViewComponent.BOLD_TEXT);
+        statusMenu.setLayoutParams(GenericLayoutParams.ZERO_SPACE, GenericLayoutParams.WRAP_CONTENT);
+        statusMenu.setPadding(7, 9, 7, 9);
+        statusMenu.setTextViewColor(R.color.whiteColor);
+        statusMenu.setGravity(Gravity.CENTER);
+        statusMenu.setLayoutWeight(1);
+
+        TextViewComponent callsMenu = new TextViewComponent(horizontalLinearLayout, "Calls", 4, TextViewComponent.BOLD_TEXT);
+        callsMenu.setLayoutParams(GenericLayoutParams.ZERO_SPACE, GenericLayoutParams.WRAP_CONTENT);
+        callsMenu.setPadding(7, 9, 7, 9);
+        callsMenu.setTextViewColor(R.color.whiteColor);
+        callsMenu.setGravity(Gravity.CENTER);
+        callsMenu.setLayoutWeight(1);
+    }
+
     public void setUppermostLayout(ViewGroup viewGroup) {
         HorizontalLinearLayout horizontalLinearLayout = new HorizontalLinearLayout(this,
                 viewGroup, GenericLayoutParams.MATCH_PARENT, GenericLayoutParams.WRAP_CONTENT);
+        horizontalLinearLayout.setPadding(23, 33, 23, 33);
+        horizontalLinearLayout.setGravity(Gravity.CENTER_VERTICAL);
 
-        // image icon
-        // header
-        // search icon
         ImageViewComponent cameraIcon = new ImageViewComponent(horizontalLinearLayout, R.drawable.icon_camera);
+        cameraIcon.setImageSize(23);
+
+        TextViewComponent activityHeader = new TextViewComponent(horizontalLinearLayout, "Simple Chat", 6, TextViewComponent.BOLD_TEXT);
+        activityHeader.setLayoutParams(GenericLayoutParams.ZERO_SPACE, GenericLayoutParams.WRAP_CONTENT);
+        activityHeader.setTextViewColor(R.color.whiteColor);
+        activityHeader.setGravity(Gravity.CENTER);
+        activityHeader.setLayoutWeight(1);
+
+        ImageViewComponent searchIcon = new ImageViewComponent(horizontalLinearLayout, R.drawable.icon_search);
+        searchIcon.setImageSize(23);
     }
 
     public void setActivityContainerLayout() {
@@ -70,25 +110,19 @@ public class SimpleChatUI extends AppCompatActivity {
         VerticalLinearLayout navyVerticalLayout =
                 new VerticalLinearLayout(this, whiteNavyVerticalLayout,
                         GenericLayoutParams.MATCH_PARENT, GenericLayoutParams.ZERO_SPACE);
-        navyVerticalLayout.setDrawable(curveBackgroundCorner(R.color.darkBlue,
-                0, 0, 0, 131));
+        navyVerticalLayout.setDrawable(AU.curveBackgroundCorner(this, R.color.darkBlue,
+                0, 0, 0, 151));
         navyVerticalLayout.setLayoutWeight(3);
 
         VerticalLinearLayout whiteVerticalLayout =
                 new VerticalLinearLayout(this, whiteNavyVerticalLayout,
                         GenericLayoutParams.MATCH_PARENT, GenericLayoutParams.ZERO_SPACE);
-        whiteVerticalLayout.setDrawable(curveBackgroundCorner(R.color.whiteColor,
-                0, 131, 0, 0));
+        whiteVerticalLayout.setDrawable(AU.curveBackgroundCorner(this, R.color.whiteColor,
+                0, 151, 0, 0));
         whiteVerticalLayout.setLayoutWeight(7);
-    }
 
-    public GradientDrawable curveBackgroundCorner(int color, float leftTop,
-                                                  float rightTop, float rightBottom, float leftBottom) {
-        GradientDrawable gradientDrawable = new GradientDrawable();
-        gradientDrawable.setColor(ContextCompat.getColor(this, color));
-        gradientDrawable.setCornerRadii(new float[]{leftTop, leftTop,
-                rightTop, rightTop, rightBottom, rightBottom, leftBottom, leftBottom});
-        return gradientDrawable;
+        setUppermostLayout(navyVerticalLayout);
+        chatNavigationLayout(navyVerticalLayout);
     }
 }
 
