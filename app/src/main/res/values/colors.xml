@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="fadedText">#CCC</color>
+    <color name="faintLine">#C5C5C5</color>
+    <color name="royalBlue">#4169E1</color>
+    <color name="replyLike">#FF00FF</color>
+    <color name="errorLayout">#C5C5C5</color>
+    <color name="genericLink">#1E90FF</color>
+    <color name="commentLike">#008000</color>
+    <color name="exhibitLike">#FF8C00</color>
+    <color name="lighterBlue">#1E90FF</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="exhibitComment">#3F51B5</color>
+    <color name="fadedButtonLayout">#AAA</color>
+    <color name="fadedTextSecond">#838383</color>
+    <color name="genericBlackColor">#555555</color>
+    <color name="genericHollowButton">#aaaaaa</color>
+    <color name="messengerChatmateStatus">#32CD32</color>
+    <color name="colorTransparentPrimary">#993F51B5</color>
+    <color name="genericPicturePlaceholder">#F5F5F5</color>
+    <color name="colorTransparentPrimarySecond">#AA3F51B5</color>
+    <color name="blackTransparentCover">#99000000</color>
+    <color name="genericCircularButton">#FF3310</color>
+    <color name="colorPrimaryDarker">#30257F</color>
+    <color name="searchBackground">#99000000</color>
+    <color name="genericBackground">#dddddd</color>
+    <color name="backgroundCover">#77000000</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="genericFormField">#e2e2e2</color>
+    <color name="negativeMessage">#FF6347</color>
+    <color name="cornflowerBlue">#6495ED</color>
+    <color name="ashBackground">#d7d7d7</color>
+    <color name="commentReply">#DC143C</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="whiteColor">#fff</color>
+    <color name="warning">#FF8C00</color>
+    <color name="danger">#ff0000</color>
+    <color name="error">#ff0000</color>
+</resources>
+
+
