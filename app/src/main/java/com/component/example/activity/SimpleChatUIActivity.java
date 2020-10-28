@@ -14,6 +14,7 @@ import com.chibuzo.component.layoutcomponent.HorizontalLinearLayout;
 import com.chibuzo.component.layoutcomponent.VerticalLinearLayout;
 import com.chibuzo.component.utility.AU;
 import com.chibuzo.component.viewcomponent.ImageViewComponent;
+import com.chibuzo.component.viewcomponent.ScrollViewComponent;
 import com.chibuzo.component.viewcomponent.TextViewComponent;
 import com.component.example.R;
 
@@ -26,6 +27,47 @@ public class SimpleChatUIActivity extends AppCompatActivity {
         AU.disableDefaultActionBar(this);
 
         setActivityContainerLayout();
+    }
+
+    public void setChatListLayout(ViewGroup viewGroup) {
+//        HorizontalLinearLayout horizontalLinearLayout =
+    }
+
+    // Add this as custom view to Component library
+    public void setChatImageAndCount(ViewGroup viewGroup, Object object,
+                                     float allSideSize, int messageCount, int messageCountColor) {
+        FrameLayoutComponent frameLayoutComponent = new FrameLayoutComponent(this,
+                viewGroup, GenericLayoutParams.WRAP_CONTENT, GenericLayoutParams.WRAP_CONTENT);
+
+        ImageViewComponent imageViewComponent = new ImageViewComponent(frameLayoutComponent, object, R.drawable.placeholder, 11);
+        imageViewComponent.setMargins(0, 5, 5, 0);
+        imageViewComponent.setImageSize(allSideSize);
+
+        TextViewComponent textViewComponent = new TextViewComponent(frameLayoutComponent,
+                String.valueOf(messageCount), 4, TextViewComponent.BOLD_TEXT);
+        textViewComponent.setDrawable(AU.curveBackgroundCorner(viewGroup.getContext(), messageCountColor, 555));
+        textViewComponent.setPadding(5, 1, 5,1);
+        textViewComponent.setTextViewColor(R.color.whiteColor);
+        textViewComponent.setLayoutGravity(Gravity.RIGHT);
+        textViewComponent.setGravity(Gravity.CENTER);
+    }
+
+    public void allChatsHeaderLayout(ViewGroup viewGroup) {
+        HorizontalLinearLayout horizontalLinearLayout = new HorizontalLinearLayout(this,
+                viewGroup, GenericLayoutParams.MATCH_PARENT, GenericLayoutParams.WRAP_CONTENT);
+        horizontalLinearLayout.setGravity(Gravity.CENTER_VERTICAL);
+
+        VerticalLinearLayout leftLayout = new VerticalLinearLayout(this,
+                horizontalLinearLayout, GenericLayoutParams.ZERO_SPACE, GenericLayoutParams.WRAP_CONTENT);
+        leftLayout.setLayoutWeight(1);
+
+        new TextViewComponent(leftLayout, "All Chats", 5, TextViewComponent.BOLD_TEXT);
+        TextViewComponent friendsLabel = new TextViewComponent(leftLayout, "Friends", 4);
+        friendsLabel.setMargins(0, 5, 0, 0);
+        friendsLabel.setTextViewColor(R.color.fadedText);
+
+        ImageViewComponent cameraIcon = new ImageViewComponent(horizontalLinearLayout, R.drawable.icon_slider);
+        cameraIcon.setImageSize(23);
     }
 
     public void chatNavigationLayout(ViewGroup viewGroup) {
@@ -58,6 +100,24 @@ public class SimpleChatUIActivity extends AppCompatActivity {
         callsMenu.setTextViewColor(R.color.whiteColor);
         callsMenu.setGravity(Gravity.CENTER);
         callsMenu.setLayoutWeight(1);
+
+        chatsMenu.setOnClickListener((view) -> {
+            chatsMenu.setDrawable(AU.curveBackgroundCorner(this, R.color.darkBlue, 11));
+            statusMenu.setDrawable(AU.curveBackgroundCorner(this, R.color.transparent, 11));
+            callsMenu.setDrawable(AU.curveBackgroundCorner(this, R.color.transparent, 11));
+        });
+
+        statusMenu.setOnClickListener((view) -> {
+            chatsMenu.setDrawable(AU.curveBackgroundCorner(this, R.color.transparent, 11));
+            statusMenu.setDrawable(AU.curveBackgroundCorner(this, R.color.darkBlue, 11));
+            callsMenu.setDrawable(AU.curveBackgroundCorner(this, R.color.transparent, 11));
+        });
+
+        callsMenu.setOnClickListener((view) -> {
+            chatsMenu.setDrawable(AU.curveBackgroundCorner(this, R.color.transparent, 11));
+            statusMenu.setDrawable(AU.curveBackgroundCorner(this, R.color.transparent, 11));
+            callsMenu.setDrawable(AU.curveBackgroundCorner(this, R.color.darkBlue, 11));
+        });
     }
 
     public void setUppermostLayout(ViewGroup viewGroup) {
@@ -121,8 +181,16 @@ public class SimpleChatUIActivity extends AppCompatActivity {
                 0, 151, 0, 0));
         whiteVerticalLayout.setLayoutWeight(7);
 
+        ScrollViewComponent scrollViewComponent = new ScrollViewComponent(whiteVerticalLayout);
+
+        VerticalLinearLayout whiteLayoutContainer = new VerticalLinearLayout(this,
+                scrollViewComponent, GenericLayoutParams.MATCH_PARENT, GenericLayoutParams.MATCH_PARENT);
+        whiteLayoutContainer.setPadding(23, 23, 23, 23);
+
         setUppermostLayout(navyVerticalLayout);
         chatNavigationLayout(navyVerticalLayout);
+        allChatsHeaderLayout(whiteLayoutContainer);
+//        setChatImageAndCount(whiteLayoutContainer, null, 55, 4, R.color.danger);
     }
 }
 

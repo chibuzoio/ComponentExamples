@@ -8,7 +8,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="fadedText">#CCC</color>
+    <color name="fadedText">#838383</color>
     <color name="faintLine">#C5C5C5</color>
     <color name="royalBlue">#4169E1</color>
     <color name="replyLike">#FF00FF</color>
@@ -20,7 +20,6 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="exhibitComment">#3F51B5</color>
     <color name="fadedButtonLayout">#AAA</color>
-    <color name="fadedTextSecond">#838383</color>
     <color name="genericBlackColor">#555555</color>
     <color name="genericHollowButton">#aaaaaa</color>
     <color name="messengerChatmateStatus">#32CD32</color>
@@ -39,6 +38,7 @@
     <color name="negativeMessage">#FF6347</color>
     <color name="cornflowerBlue">#6495ED</color>
     <color name="ashBackground">#d7d7d7</color>
+    <color name="transparent">#00000000</color>
     <color name="commentReply">#DC143C</color>
     <color name="colorAccent">#FF4081</color>
     <color name="whiteColor">#fff</color>
