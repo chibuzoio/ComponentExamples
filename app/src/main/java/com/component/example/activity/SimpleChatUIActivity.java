@@ -29,17 +29,26 @@ public class SimpleChatUIActivity extends AppCompatActivity {
         setActivityContainerLayout();
     }
 
-    public void setChatListLayout(ViewGroup viewGroup) {
-//        HorizontalLinearLayout horizontalLinearLayout =
+    public void setChatListLayout(ViewGroup viewGroup, Object imageObject) {
+        HorizontalLinearLayout horizontalLinearLayout = new HorizontalLinearLayout(this,
+                viewGroup, GenericLayoutParams.MATCH_PARENT, GenericLayoutParams.WRAP_CONTENT);
+
+        setChatImageAndCount(horizontalLinearLayout, imageObject, 55, 4, R.color.danger);
+
+        VerticalLinearLayout verticalLinearLayout = new VerticalLinearLayout(this,
+                horizontalLinearLayout, GenericLayoutParams.ZERO_SPACE, GenericLayoutParams.WRAP_CONTENT);
+
+
     }
 
     // Add this as custom view to Component library
-    public void setChatImageAndCount(ViewGroup viewGroup, Object object,
+    public void setChatImageAndCount(ViewGroup viewGroup, Object imageObject,
                                      float allSideSize, int messageCount, int messageCountColor) {
         FrameLayoutComponent frameLayoutComponent = new FrameLayoutComponent(this,
                 viewGroup, GenericLayoutParams.WRAP_CONTENT, GenericLayoutParams.WRAP_CONTENT);
 
-        ImageViewComponent imageViewComponent = new ImageViewComponent(frameLayoutComponent, object, R.drawable.placeholder, 11);
+        ImageViewComponent imageViewComponent = new ImageViewComponent(frameLayoutComponent,
+                imageObject, R.drawable.placeholder, 11);
         imageViewComponent.setMargins(0, 5, 5, 0);
         imageViewComponent.setImageSize(allSideSize);
 
@@ -190,7 +199,6 @@ public class SimpleChatUIActivity extends AppCompatActivity {
         setUppermostLayout(navyVerticalLayout);
         chatNavigationLayout(navyVerticalLayout);
         allChatsHeaderLayout(whiteLayoutContainer);
-//        setChatImageAndCount(whiteLayoutContainer, null, 55, 4, R.color.danger);
     }
 }
 
