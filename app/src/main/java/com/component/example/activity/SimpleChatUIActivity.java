@@ -2,6 +2,7 @@ package com.component.example.activity;
 
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
@@ -29,16 +30,33 @@ public class SimpleChatUIActivity extends AppCompatActivity {
         setActivityContainerLayout();
     }
 
-    public void setChatListLayout(ViewGroup viewGroup, Object imageObject) {
+    public void setChatListLayout(ViewGroup viewGroup, Object imageObject, int imageObjectSize,
+                                  int messageCount, String chatterName, String chatterMessage, String activeTime) {
         HorizontalLinearLayout horizontalLinearLayout = new HorizontalLinearLayout(this,
                 viewGroup, GenericLayoutParams.MATCH_PARENT, GenericLayoutParams.WRAP_CONTENT);
+        horizontalLinearLayout.setMargins(0, 5, 0, 5);
+        horizontalLinearLayout.setGravity(Gravity.CENTER_VERTICAL);
 
-        setChatImageAndCount(horizontalLinearLayout, imageObject, 55, 4, R.color.danger);
+        setChatImageAndCount(horizontalLinearLayout, imageObject, imageObjectSize, messageCount, R.color.danger);
 
         VerticalLinearLayout verticalLinearLayout = new VerticalLinearLayout(this,
                 horizontalLinearLayout, GenericLayoutParams.ZERO_SPACE, GenericLayoutParams.WRAP_CONTENT);
+        verticalLinearLayout.setMargins(7, 0, 0, 0);
+        verticalLinearLayout.setGravity(Gravity.CENTER_VERTICAL);
+        verticalLinearLayout.setLayoutWeight(10);
 
+        TextViewComponent chatterNameView = new TextViewComponent(verticalLinearLayout,
+                chatterName, 5, TextViewComponent.BOLD_TEXT);
+        chatterNameView.setMargins(0, 0, 0, 5);
 
+        TextViewComponent chatterMessageView = new TextViewComponent(verticalLinearLayout, chatterMessage, 4);
+        chatterMessageView.setTextViewColor(R.color.fadedText);
+
+        TextViewComponent activeTimeView = new TextViewComponent(horizontalLinearLayout,
+                activeTime, 4, TextViewComponent.BOLD_TEXT);
+        activeTimeView.setLayoutParams(GenericLayoutParams.ZERO_SPACE, GenericLayoutParams.WRAP_CONTENT);
+        activeTimeView.setGravity(Gravity.RIGHT);
+        activeTimeView.setLayoutWeight(2);
     }
 
     // Add this as custom view to Component library
@@ -59,11 +77,16 @@ public class SimpleChatUIActivity extends AppCompatActivity {
         textViewComponent.setTextViewColor(R.color.whiteColor);
         textViewComponent.setLayoutGravity(Gravity.RIGHT);
         textViewComponent.setGravity(Gravity.CENTER);
+
+        if (messageCount <= 0) {
+            textViewComponent.setVisibility(View.INVISIBLE);
+        }
     }
 
     public void allChatsHeaderLayout(ViewGroup viewGroup) {
         HorizontalLinearLayout horizontalLinearLayout = new HorizontalLinearLayout(this,
                 viewGroup, GenericLayoutParams.MATCH_PARENT, GenericLayoutParams.WRAP_CONTENT);
+        horizontalLinearLayout.setMargins(0, 0, 0, 7);
         horizontalLinearLayout.setGravity(Gravity.CENTER_VERTICAL);
 
         VerticalLinearLayout leftLayout = new VerticalLinearLayout(this,
@@ -199,6 +222,14 @@ public class SimpleChatUIActivity extends AppCompatActivity {
         setUppermostLayout(navyVerticalLayout);
         chatNavigationLayout(navyVerticalLayout);
         allChatsHeaderLayout(whiteLayoutContainer);
+        setChatListLayout(whiteLayoutContainer, R.drawable.avatar_seven, 55,
+        4, "John Doe", "Hello! Bring that to me", "2:56");
+        setChatListLayout(whiteLayoutContainer, R.drawable.avatar_six, 55,
+        0, "Bruce Shenko", "I'm coming buddy", "1:23");
+        setChatListLayout(whiteLayoutContainer, R.drawable.avatar_three, 55,
+        0, "Michelle Brown", "Who's this please?", "11:34");
+        setChatListLayout(whiteLayoutContainer, R.drawable.avatar_five, 55,
+        3, "Owen Lee", "Will be going to the party tonight?", "2:11");
     }
 }
 
