@@ -20,6 +20,8 @@ import com.chibuzo.component.viewcomponent.TextViewComponent;
 import com.component.example.R;
 
 public class SimpleChatUIActivity extends AppCompatActivity {
+    private FrameLayoutComponent activityContainer;
+    private VerticalLinearLayout whiteLayoutContainer, chatIconButtonFloat;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,16 +32,19 @@ public class SimpleChatUIActivity extends AppCompatActivity {
         setActivityContainerLayout();
     }
 
-    public void setFloatingChatIconButton(ViewGroup viewGroup) {
-        VerticalLinearLayout verticalLinearLayout = new VerticalLinearLayout(this,
-                viewGroup, GenericLayoutParams.WRAP_CONTENT, GenericLayoutParams.WRAP_CONTENT);
-        verticalLinearLayout.setDrawable(AU.curveBackgroundCorner(this, R.color.danger, 23));
-        verticalLinearLayout.setMargins(0, 0, 33.333f, 33.333f);
-        verticalLinearLayout.setPadding(7, 7, 7, 7);
-        verticalLinearLayout.setLayoutGravity(Gravity.END | Gravity.BOTTOM);
-        verticalLinearLayout.setElevation(23);
+    public void setFloatingChatIconButton(ViewGroup viewGroup,  Object imageObject, int backgroundColor) {
+        viewGroup.removeView(chatIconButtonFloat);
 
-        ImageViewComponent imageViewComponent = new ImageViewComponent(verticalLinearLayout, R.drawable.icon_chat);
+        chatIconButtonFloat = new VerticalLinearLayout(this,
+                viewGroup, GenericLayoutParams.WRAP_CONTENT, GenericLayoutParams.WRAP_CONTENT);
+        chatIconButtonFloat.setDrawable(AU.curveBackgroundCorner(this, backgroundColor, 23));
+        chatIconButtonFloat.setMargins(0, 0, 33.333f, 33.333f);
+        chatIconButtonFloat.setLayoutGravity(Gravity.END | Gravity.BOTTOM);
+        chatIconButtonFloat.setPadding(7, 7, 7, 7);
+        chatIconButtonFloat.setFocusableInTouchMode(false);
+        chatIconButtonFloat.setElevation(23);
+
+        ImageViewComponent imageViewComponent = new ImageViewComponent(chatIconButtonFloat, imageObject);
         imageViewComponent.setImageSize(33.333f);
     }
 
@@ -189,18 +194,21 @@ public class SimpleChatUIActivity extends AppCompatActivity {
             chatsMenu.setDrawable(AU.curveBackgroundCorner(this, R.color.darkBlue, 11));
             statusMenu.setDrawable(AU.curveBackgroundCorner(this, R.color.transparent, 11));
             callsMenu.setDrawable(AU.curveBackgroundCorner(this, R.color.transparent, 11));
+            setAllChatsCollection(whiteLayoutContainer);
         });
 
         statusMenu.setOnClickListener((view) -> {
             chatsMenu.setDrawable(AU.curveBackgroundCorner(this, R.color.transparent, 11));
             statusMenu.setDrawable(AU.curveBackgroundCorner(this, R.color.darkBlue, 11));
             callsMenu.setDrawable(AU.curveBackgroundCorner(this, R.color.transparent, 11));
+            setAllStatusCollection(whiteLayoutContainer);
         });
 
         callsMenu.setOnClickListener((view) -> {
             chatsMenu.setDrawable(AU.curveBackgroundCorner(this, R.color.transparent, 11));
             statusMenu.setDrawable(AU.curveBackgroundCorner(this, R.color.transparent, 11));
             callsMenu.setDrawable(AU.curveBackgroundCorner(this, R.color.darkBlue, 11));
+            setAllCallsCollection(whiteLayoutContainer);
         });
     }
 
@@ -224,10 +232,7 @@ public class SimpleChatUIActivity extends AppCompatActivity {
     }
 
     public void setActivityContainerLayout() {
-        FrameLayoutComponent activityContainer =
-                new FrameLayoutComponent(this, GenericLayoutParams.MATCH_PARENT,
-                        GenericLayoutParams.MATCH_PARENT);
-
+        activityContainer = new FrameLayoutComponent(this, GenericLayoutParams.MATCH_PARENT, GenericLayoutParams.MATCH_PARENT);
         activityContainer.setBackgroundColor(ContextCompat.getColor(this, R.color.whiteColor));
 
         setContentView(activityContainer);
@@ -267,22 +272,29 @@ public class SimpleChatUIActivity extends AppCompatActivity {
 
         ScrollViewComponent scrollViewComponent = new ScrollViewComponent(whiteVerticalLayout);
 
-        VerticalLinearLayout whiteLayoutContainer = new VerticalLinearLayout(this,
+        whiteLayoutContainer = new VerticalLinearLayout(this,
                 scrollViewComponent, GenericLayoutParams.MATCH_PARENT, GenericLayoutParams.MATCH_PARENT);
         whiteLayoutContainer.setPadding(23, 23, 23, 23);
 
         setUppermostLayout(navyVerticalLayout);
         chatNavigationLayout(navyVerticalLayout);
+
+        /*** REPLACE THE EXPRESSIONS BELOW WITH RECYCLER VIEW IN A PRODUCTION APPLICATION ***/
+        setAllChatsCollection(whiteLayoutContainer);
+
+        setFloatingChatIconButton(activityContainer, R.drawable.icon_chat, R.color.danger);
+    }
+
+    public void setAllChatsCollection(ViewGroup whiteLayoutContainer) {
+        whiteLayoutContainer.removeAllViews();
         allChatsHeaderLayout(whiteLayoutContainer);
 
-        /*** REPLACE THE EXPRESSION BELOW WITH RECYCLER VIEW IN A PRODUCTION APPLICATION ***/
-
         setChatListLayout(whiteLayoutContainer, R.drawable.avatar_six, 55,
-        2, "Bruce Shenko", "I'm coming buddy", "1:23");
+                2, "Bruce Shenko", "I'm coming buddy", "1:23");
         setChatListLayout(whiteLayoutContainer, R.drawable.avatar_three, 55,
-        0, "Michelle Brown", "Who's this please?", "11:34");
+                0, "Michelle Brown", "Who's this please?", "11:34");
         setChatListLayout(whiteLayoutContainer, R.drawable.avatar_five, 55,
-        3, "Owen Lee", "Will be going to the party tonight?", "2:11");
+                3, "Owen Lee", "Will be going to the party tonight?", "2:11");
 
         setGroupMessageHeader(whiteLayoutContainer);
 
@@ -295,7 +307,41 @@ public class SimpleChatUIActivity extends AppCompatActivity {
 
         setOnlyGroupMessageHeader(whiteLayoutContainer);
 
-        setFloatingChatIconButton(activityContainer);
+        setFloatingChatIconButton(activityContainer, R.drawable.icon_chat, R.color.danger);
+    }
+
+    public void setAllStatusCollection(ViewGroup whiteLayoutContainer) {
+        whiteLayoutContainer.removeAllViews();
+
+        TextViewComponent myStatusHeader = new TextViewComponent(whiteLayoutContainer,
+                "My Status", 5, TextViewComponent.BOLD_TEXT);
+        myStatusHeader.setMargins(0, 0, 0, 5);
+
+        setChatListLayout(whiteLayoutContainer, R.drawable.avatar_six, 55,
+                0, "Bruce Shenko", "At Work", "");
+
+        TextViewComponent friendsStatusHeader = new TextViewComponent(whiteLayoutContainer,
+                "Friends' Status", 5, TextViewComponent.BOLD_TEXT);
+        friendsStatusHeader.setMargins(0, 15.333f, 0, 5);
+
+        setChatListLayout(whiteLayoutContainer, R.drawable.avatar_three, 55,
+                0, "Michelle Brown", "Busy", "");
+        setChatListLayout(whiteLayoutContainer, R.drawable.avatar_five, 55,
+                0, "Owen Lee", "Empire State Of Mind", "");
+        setChatListLayout(whiteLayoutContainer, R.drawable.avatar_eight, 55,
+                0, "Priscilia Percy", "Staying Safe", "");
+        setChatListLayout(whiteLayoutContainer, R.drawable.avatar_four, 55,
+                0, "Olivia Shawn", "Time Factor", "");
+        setChatListLayout(whiteLayoutContainer, R.drawable.avatar_seven, 55,
+                0, "John Paul", "In A Meeting", "");
+
+        setFloatingChatIconButton(activityContainer, R.drawable.icon_edit, R.color.danger);
+    }
+
+    public void setAllCallsCollection(ViewGroup whiteLayoutContainer) {
+        whiteLayoutContainer.removeAllViews();
+
+        setFloatingChatIconButton(activityContainer, R.drawable.icon_call, R.color.danger);
     }
 }
 
