@@ -16,7 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.SimpleChatUIActivity">
+        <activity android:name=".activity.simplechatactivity.SimpleChatUIActivity">
+
+        </activity>
+        <activity android:name=".activity.simplechatactivity.SimpleChatHomeActivity">
 
         </activity>
 

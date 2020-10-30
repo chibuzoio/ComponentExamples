@@ -13,7 +13,7 @@ import com.chibuzo.component.layoutcomponent.VerticalLinearLayout;
 import com.chibuzo.component.utility.AU;
 import com.chibuzo.component.viewcomponent.ButtonComponent;
 import com.chibuzo.component.viewcomponent.ScrollViewComponent;
-import com.component.example.activity.SimpleChatUIActivity;
+import com.component.example.activity.simplechatactivity.SimpleChatHomeActivity;
 
 public class MainActivity extends AppCompatActivity {
     AlphaAnimation buttonAnimation = new AlphaAnimation(1f, 0f);
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         simpleChatButton.setOnClickListener((view) -> {
             simpleChatButton.startAnimation(buttonAnimation);
 
-            Intent intent = new Intent(MainActivity.this, SimpleChatUIActivity.class);
+            Intent intent = new Intent(MainActivity.this, SimpleChatHomeActivity.class);
             startActivity(intent);
         });
     }

@@ -1,4 +1,4 @@
-package com.component.example.activity;
+package com.component.example.activity.simplechatactivity;
 
 import android.os.Bundle;
 import android.view.Gravity;
@@ -28,6 +28,58 @@ public class SimpleChatUIActivity extends AppCompatActivity {
         AU.disableDefaultActionBar(this);
 
         setActivityContainerLayout();
+    }
+
+    public void setFloatingChatIconButton(ViewGroup viewGroup) {
+        VerticalLinearLayout verticalLinearLayout = new VerticalLinearLayout(this,
+                viewGroup, GenericLayoutParams.WRAP_CONTENT, GenericLayoutParams.WRAP_CONTENT);
+        verticalLinearLayout.setDrawable(AU.curveBackgroundCorner(this, R.color.danger, 23));
+        verticalLinearLayout.setMargins(0, 0, 33.333f, 33.333f);
+        verticalLinearLayout.setPadding(7, 7, 7, 7);
+        verticalLinearLayout.setLayoutGravity(Gravity.END | Gravity.BOTTOM);
+        verticalLinearLayout.setElevation(23);
+
+        ImageViewComponent imageViewComponent = new ImageViewComponent(verticalLinearLayout, R.drawable.icon_chat);
+        imageViewComponent.setImageSize(33.333f);
+    }
+
+    public void setOnlyGroupMessageHeader(ViewGroup viewGroup) {
+        VerticalLinearLayout verticalLinearLayout = new VerticalLinearLayout(this,
+                viewGroup, GenericLayoutParams.MATCH_PARENT, GenericLayoutParams.WRAP_CONTENT);
+        verticalLinearLayout.setMargins(0, 0, 0, 11.111f);
+
+        HorizontalLinearLayout seeMoreLayout = new HorizontalLinearLayout(this,
+                verticalLinearLayout, GenericLayoutParams.MATCH_PARENT, GenericLayoutParams.WRAP_CONTENT);
+        seeMoreLayout.setMargins(0, 15.333f, 0, 17.555f);
+        seeMoreLayout.setGravity(Gravity.CENTER_VERTICAL);
+
+        TextViewComponent seeMoreText = new TextViewComponent(seeMoreLayout, "See More", 4, TextViewComponent.BOLD_TEXT);
+        seeMoreText.setLayoutParams(GenericLayoutParams.WRAP_CONTENT, GenericLayoutParams.WRAP_CONTENT);
+        seeMoreText.setTextViewColor(R.color.danger);
+
+        ImageViewComponent seeMoreIcon = new ImageViewComponent(seeMoreLayout, R.drawable.icon_more_than);
+        seeMoreIcon.setImageSize(11.111f);
+    }
+
+    public void setGroupMessageHeader(ViewGroup viewGroup) {
+        VerticalLinearLayout verticalLinearLayout = new VerticalLinearLayout(this,
+                viewGroup, GenericLayoutParams.MATCH_PARENT, GenericLayoutParams.WRAP_CONTENT);
+        verticalLinearLayout.setMargins(0, 0, 0, 11.111f);
+
+        HorizontalLinearLayout seeMoreLayout = new HorizontalLinearLayout(this,
+                verticalLinearLayout, GenericLayoutParams.MATCH_PARENT, GenericLayoutParams.WRAP_CONTENT);
+        seeMoreLayout.setMargins(0, 15.333f, 0, 17.555f);
+        seeMoreLayout.setGravity(Gravity.CENTER_VERTICAL);
+
+        TextViewComponent seeMoreText = new TextViewComponent(seeMoreLayout, "See More", 4, TextViewComponent.BOLD_TEXT);
+        seeMoreText.setLayoutParams(GenericLayoutParams.WRAP_CONTENT, GenericLayoutParams.WRAP_CONTENT);
+        seeMoreText.setTextViewColor(R.color.danger);
+
+        ImageViewComponent seeMoreIcon = new ImageViewComponent(seeMoreLayout, R.drawable.icon_more_than);
+        seeMoreIcon.setImageSize(11.111f);
+
+        TextViewComponent groupMessageHeader = new TextViewComponent(verticalLinearLayout, "Group Message", 4);
+        groupMessageHeader.setTextViewColor(R.color.fadedText);
     }
 
     public void setChatListLayout(ViewGroup viewGroup, Object imageObject, int imageObjectSize,
@@ -95,7 +147,7 @@ public class SimpleChatUIActivity extends AppCompatActivity {
 
         new TextViewComponent(leftLayout, "All Chats", 5, TextViewComponent.BOLD_TEXT);
         TextViewComponent friendsLabel = new TextViewComponent(leftLayout, "Friends", 4);
-        friendsLabel.setMargins(0, 5, 0, 0);
+        friendsLabel.setMargins(0, 17.555f, 0, 0);
         friendsLabel.setTextViewColor(R.color.fadedText);
 
         ImageViewComponent cameraIcon = new ImageViewComponent(horizontalLinearLayout, R.drawable.icon_slider);
@@ -222,14 +274,28 @@ public class SimpleChatUIActivity extends AppCompatActivity {
         setUppermostLayout(navyVerticalLayout);
         chatNavigationLayout(navyVerticalLayout);
         allChatsHeaderLayout(whiteLayoutContainer);
-        setChatListLayout(whiteLayoutContainer, R.drawable.avatar_seven, 55,
-        4, "John Doe", "Hello! Bring that to me", "2:56");
+
+        /*** REPLACE THE EXPRESSION BELOW WITH RECYCLER VIEW IN A PRODUCTION APPLICATION ***/
+
         setChatListLayout(whiteLayoutContainer, R.drawable.avatar_six, 55,
-        0, "Bruce Shenko", "I'm coming buddy", "1:23");
+        2, "Bruce Shenko", "I'm coming buddy", "1:23");
         setChatListLayout(whiteLayoutContainer, R.drawable.avatar_three, 55,
         0, "Michelle Brown", "Who's this please?", "11:34");
         setChatListLayout(whiteLayoutContainer, R.drawable.avatar_five, 55,
         3, "Owen Lee", "Will be going to the party tonight?", "2:11");
+
+        setGroupMessageHeader(whiteLayoutContainer);
+
+        setChatListLayout(whiteLayoutContainer, R.drawable.micky_mouse, 55,
+                3, "Micky Mouse Group", "Who has seen the last episode?", "5:11");
+        setChatListLayout(whiteLayoutContainer, R.drawable.event_listing, 55,
+                7, "The Developers Of The Future", "Project X is on its way to the final revision before deployment", "8:44");
+        setChatListLayout(whiteLayoutContainer, R.drawable.minions, 55,
+                0, "The Minions Fan", "Who's here?", "4:15");
+
+        setOnlyGroupMessageHeader(whiteLayoutContainer);
+
+        setFloatingChatIconButton(activityContainer);
     }
 }
 
