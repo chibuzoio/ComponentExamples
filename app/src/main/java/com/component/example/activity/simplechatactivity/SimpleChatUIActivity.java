@@ -17,6 +17,7 @@ import com.chibuzo.component.utility.AU;
 import com.chibuzo.component.viewcomponent.ImageViewComponent;
 import com.chibuzo.component.viewcomponent.ScrollViewComponent;
 import com.chibuzo.component.viewcomponent.TextViewComponent;
+import com.chibuzo.component.viewcomponent.ViewComponent;
 import com.component.example.R;
 
 public class SimpleChatUIActivity extends AppCompatActivity {
@@ -85,6 +86,32 @@ public class SimpleChatUIActivity extends AppCompatActivity {
 
         TextViewComponent groupMessageHeader = new TextViewComponent(verticalLinearLayout, "Group Message", 4);
         groupMessageHeader.setTextViewColor(R.color.fadedText);
+    }
+
+    public void setCallsListLayout(ViewGroup viewGroup, Object imageObject, int imageObjectSize,
+                                   String chatterName, String callDateTime, Object callTypeIcon) {
+        HorizontalLinearLayout horizontalLinearLayout = new HorizontalLinearLayout(this,
+                viewGroup, GenericLayoutParams.MATCH_PARENT, GenericLayoutParams.WRAP_CONTENT);
+        horizontalLinearLayout.setMargins(0, 5, 0, 5);
+        horizontalLinearLayout.setGravity(Gravity.CENTER_VERTICAL);
+
+        setChatImageAndCount(horizontalLinearLayout, imageObject, imageObjectSize, 0, R.color.danger);
+
+        VerticalLinearLayout verticalLinearLayout = new VerticalLinearLayout(this,
+                horizontalLinearLayout, GenericLayoutParams.ZERO_SPACE, GenericLayoutParams.WRAP_CONTENT);
+        verticalLinearLayout.setMargins(7, 0, 0, 0);
+        verticalLinearLayout.setGravity(Gravity.CENTER_VERTICAL);
+        verticalLinearLayout.setLayoutWeight(10);
+
+        TextViewComponent chatterNameView = new TextViewComponent(verticalLinearLayout,
+                chatterName, 5, TextViewComponent.BOLD_TEXT);
+        chatterNameView.setMargins(0, 0, 0, 5);
+
+        TextViewComponent callDateTimeView = new TextViewComponent(verticalLinearLayout, callDateTime, 4);
+        callDateTimeView.setTextViewColor(R.color.fadedText);
+
+        ImageViewComponent imageViewComponent = new ImageViewComponent(horizontalLinearLayout, callTypeIcon);
+        imageViewComponent.setImageSize(23);
     }
 
     public void setChatListLayout(ViewGroup viewGroup, Object imageObject, int imageObjectSize,
@@ -340,6 +367,25 @@ public class SimpleChatUIActivity extends AppCompatActivity {
 
     public void setAllCallsCollection(ViewGroup whiteLayoutContainer) {
         whiteLayoutContainer.removeAllViews();
+
+        TextViewComponent myStatusHeader = new TextViewComponent(whiteLayoutContainer,
+                "All Calls", 5, TextViewComponent.BOLD_TEXT);
+        myStatusHeader.setMargins(0, 0, 0, 5);
+
+        setCallsListLayout(whiteLayoutContainer, R.drawable.avatar_three, 55,
+                "Michelle Brown", "11th March, 12:11 pm", R.drawable.icon_received_call);
+        setCallsListLayout(whiteLayoutContainer, R.drawable.avatar_seven, 55,
+                "John Paul", "1st March, 9:34 am", R.drawable.icon_received_call);
+        setCallsListLayout(whiteLayoutContainer, R.drawable.avatar_four, 55,
+                "Olivia Shawn", "26th February, 1:11 pm", R.drawable.icon_missed_call);
+        setCallsListLayout(whiteLayoutContainer, R.drawable.avatar_eight, 55,
+                "Priscilia Percy", "26th February, 3:11 pm", R.drawable.icon_received_call);
+        setCallsListLayout(whiteLayoutContainer, R.drawable.avatar_five, 55,
+                "Owen Lee", "24th February, 11:11 am", R.drawable.icon_missed_call);
+        setCallsListLayout(whiteLayoutContainer, R.drawable.avatar_one, 55,
+                "Clara Chan", "20th February, 12:45 pm", R.drawable.icon_received_call);
+
+        new ViewComponent(whiteLayoutContainer, R.color.whiteColor, 55.555f);
 
         setFloatingChatIconButton(activityContainer, R.drawable.icon_call, R.color.danger);
     }
